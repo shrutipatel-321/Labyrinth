@@ -10,5 +10,9 @@ router.post("/",(req,res)=>{
    req.body.Team_ID,
    req.body.team_member_names
  ]
+ con.query(q,[values],(err,data)=>{
+  if(err) console.log(err)
+  return res.status(200).json("Registered Successfully")
+ })
  
 })

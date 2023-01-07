@@ -1,10 +1,10 @@
 const mysql = require("mysql");
-export const con = mysql.createConnection({
+const con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "labyrinth",
-  port: 3306,
+  database: "labyrinth"
+  
 });
 con.connect((err) => {
   if (err) {
