@@ -3,11 +3,11 @@ const app = express();
 const mysql = require("./connection").con;
 const port = 8000;
 const cors = require('cors');
-app.use(express.json());
+
 app.use(cors({
     origin: '*'
 }));
-
+app.use(express.json());
 // Routing
 app.use('/question',  require('./routes/currentQuestion'));
 app.use('/team',  require('./routes/insertTeam'));
