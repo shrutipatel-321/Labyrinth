@@ -11,6 +11,7 @@ router.post("/",(req,res)=>{
  ]
  mysql.query(q,[values],(err,data)=>{
   if(err) console.log(err)
+  console.log(data)
   return res.status(200).json("Registered Successfully")
  })
 
