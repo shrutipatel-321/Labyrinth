@@ -7,23 +7,28 @@ router.post("/", (req, res) => {
     // req.body.Team_ID = tid
 
     const teamid = req.body.Team_ID;
-    slno = "";
-    qslno = `SELECT Sl_no FROM current_status WHERE Team_ID = ${teamid}`;
-    mysql.query(qslno, (errslno, dataslno) => {
-        if (errslno) console.log("qslno", errslno)
-        else {
-            slno = dataslno[0].Sl_no;
-        }
-    })
+    // slno = "";
+    // qslno = `SELECT Sl_no FROM current_status WHERE Team_ID = ${teamid}`;
+    // mysql.query(qslno, (errslno, dataslno) => {
+    //     if (errslno) console.log("qslno", errslno)
+    //     else {
+    //         res.send(dataslno)
+    //         // slno = dataslno[0].Sl_no;
+    //     }
+    // })
     
     // Fetching current question id
-    q1 = `SELECT current_ques_id FROM current_status WHERE Team_ID = ${teamid} AND Sl_no=${slno}`
+    q1 = `SELECT current_ques_id FROM current_status WHERE Team_ID = ${teamid}`
     mysql.query(q1, (err1, data) => {
         if (err1)
         {
             console.log("query1", err1)
         } 
         else {
+            if(data.length==0)
+            {
+                return res.send("No as such data");
+            }
             qid = data[0].current_ques_id;
             console.log(data[0].current_ques_id);
 
@@ -34,7 +39,7 @@ router.post("/", (req, res) => {
                 else {
                     //If right QR scanned
                     if (data2[0].qr_string === req.body.qr_string) {
-                        q3 = `SELECT question_order FROM current_status WHERE Team_ID = ? AND Sl_no=${slno}`
+                        q3 = `SELECT question_order FROM current_status WHERE Team_ID = ?`
                         mysql.query(q3, [teamid], (err3, data3) => {
                             if (err3) console.log("query3", err3)
                             const qo = data3[0].question_order;
@@ -42,8 +47,8 @@ router.post("/", (req, res) => {
                             for (i = 0; i < qo.length; i++) {
                                 if (qo[i] == qid) {
                                     nextqid = qo[i + 1]
-                                    q4 = "UPDATE current_status SET current_ques_id = ? WHERE Team_ID = ? AND Sl_no=?"
-                                    mysql.query(q4, [nextqid, teamid, slno], (err4, data4) => {
+                                    q4 = "UPDATE current_status SET current_ques_id = ? WHERE Team_ID = ?"
+                                    mysql.query(q4, [nextqid, teamid], (err4, data4) => {
                                         if (err4) console.log("query4", err4)
                                         else return res.status(200).json("Update question id Successfully")
                                     })
@@ -56,10 +61,15 @@ router.post("/", (req, res) => {
                         res.json("False");
 
                         //Increasing wrong attempts
-                        q5 = `SELECT wrong_attempts FROM current_status WHERE Team_ID = ? AND Sl_no = ${slno}`
-                        res.json(q5)
+                        q5 = `SELECT wrong_attempts FROM current_status WHERE Team_ID = ?`
                         mysql.query(q5, [teamid], (err5, data5) => {
-                            res.json(data5)
+                            console.log(data5)
+                            if(data5.length == 0){
+                                console.log("adgj")
+                            }
+                            // res.json(data5[0].wrong_attempts)
+                            // res.json(data5)
+                            
                             if (err5) {
                                 res.send({
                                     code: -1,
@@ -67,6 +77,8 @@ router.post("/", (req, res) => {
                                 });
                             }
                             else {
+
+                                if(data5.length!=0){
                                 wrgattempt = data5[0].wrong_attempts
                                 if (wrgattempt >= 10) {
                                     res.send({
@@ -75,13 +87,14 @@ router.post("/", (req, res) => {
                                     })
                                 }
                                 else {
-                                    q6 = "UPDATE current_status SET wrong_attempts = ? WHERE Team_ID = ? AND Sl_no=?"
-                                    mysql.query(q5, [(wrgattempt+1),teamid, slno], (err6, data6) => {
+                                    q6 = "UPDATE current_status SET wrong_attempts = ? WHERE Team_ID = ?"
+                                    mysql.query(q5, [(wrgattempt+1),teamid], (err6, data6) => {
                                         if (err6) console.log(err6)
                                         else return res.status(200).json("Update wrong attempts Successfully")
                                     })
                                 }
                             }
+                        }
                         })
                     }
                 }
