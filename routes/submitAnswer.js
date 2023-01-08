@@ -5,3 +5,4 @@ const mysql = require("../database/connection").con;
 router.post("/",(req,res)=>{
     
 })
+module.exports=router;
