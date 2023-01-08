@@ -76,7 +76,7 @@ router.post("/", (req, res) => {
                                 }
                                 else {
                                     q6 = "UPDATE current_status SET wrong_attempts = ? WHERE Team_ID = ? AND Sl_no=?"
-                                    mysql.query(q5, [teamid, slno], (err6, data6) => {
+                                    mysql.query(q5, [(wrgattempt+1),teamid, slno], (err6, data6) => {
                                         if (err6) console.log(err6)
                                         else return res.status(200).json("Update wrong attempts Successfully")
                                     })
