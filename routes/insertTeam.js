@@ -5,16 +5,55 @@ const axios = require("axios");
 
 router.post("/", (req, res) => {
   var events = [];
-  const token = JSON.stringify(req.body.token);
+  // const token = JSON.stringify(req.body.token);
 
   var Team_ID = "";
   var allmembers = [];
   var team_member_names = [];
   var team_member_sfids = [];
   var q_array = [];
-  var easy_qs = ["1", "2", "3", "4", "5"];
-  var hard_qs = ["6", "7", "8", "9"];
 
+  var easy_qs = [];
+  var hard_qs = [];
+
+  
+    const q =
+      "SELECT * FROM labyrinth.labyrinth_questions WHERE difficulty='easy'";
+    mysql.query(q, (err, data) => {
+      // console.log(data);
+      if(err) console.log(err);
+      else{
+        for (let i = 0; i < data.length; i++) {
+          easy_qs.push(`${data[i].question_id}`);
+        }
+
+      }
+      
+      // console.log(easy_qs);
+      
+    });
+   
+  
+ 
+    const q1 =
+      "SELECT * FROM labyrinth.labyrinth_questions WHERE difficulty='hard'";
+     
+      mysql.query(q1, (err, data) => {
+      // console.log(data);
+      if(err) console.log(err);
+      else{
+        for (let i = 0; i < data.length; i++) {
+          hard_qs.push(`${data[i].question_id}`);
+        }
+      }
+      
+      // console.log(hard_qs);
+    
+    });
+    
+
+    
+  
   function shuffle(array) {
     let currentIndex = array.length,
       randomIndex;
@@ -34,16 +73,22 @@ router.post("/", (req, res) => {
 
     return array;
   }
-  shuffle(easy_qs);
-  shuffle(hard_qs);
 
-  easy_qs.map((item) => {
-    return q_array.push(item);
-  });
-  hard_qs.map((item) => {
-    return q_array.push(item);
-  });
-  q_array.push("10");
+   
+  setTimeout(()=>{
+    shuffle(easy_qs);
+
+    shuffle(hard_qs);
+    
+    easy_qs.map((item) => {
+      return q_array.push(item);
+    });
+    hard_qs.map((item) => {
+      return q_array.push(item);
+    });
+    
+  q_array.push("5");
+  // console.log(q_array);
 
   axios
     .post("https://mainapi.springfest.in/api/user/get_registered_events", {
@@ -86,7 +131,7 @@ router.post("/", (req, res) => {
             console.log(err);
             return res.send({
               data: {
-                code: -2,
+                code: -3,
                 message: err.message,
               },
             });
@@ -100,10 +145,26 @@ router.post("/", (req, res) => {
           }
         });
       }
+      if(response.data.code==-2)
+       res.send({
+        data:{
+          code:-2,
+          message:"Token expired",
+        }
+       })
     })
     .catch((err) => {
       console.log(err);
     });
+
+  },50)
+    
+  
+  
+
+  
+
+  
 });
 
 module.exports = router;
