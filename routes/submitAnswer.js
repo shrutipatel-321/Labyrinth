@@ -9,7 +9,7 @@ router.post("/",middlewareComp, (req, res) => {
 
     const teamid = req.body.Team_ID;
     qind = "";
-    qnind = `SELECT question_index FROM current_status WHERE Team_ID = ${teamid}`;
+    qnind = `SELECT current_ques_no FROM current_status WHERE Team_ID = ${teamid}`;
     mysql.query(qnind, (errslno, dataslno) => {
         if (errslno){ 
             res.json({
@@ -25,8 +25,8 @@ router.post("/",middlewareComp, (req, res) => {
                 })
             }
             else{
-                qind = dataslno[0].question_index; 
-                if(qind<9){
+                qind = dataslno[0].current_ques_no -1 ; 
+                // if(qind<9){
                     // Fetching current question id
                     q1 = `SELECT current_ques_id FROM current_status WHERE Team_ID = ${teamid}`
                     mysql.query(q1, (err1, data) => {
@@ -63,8 +63,8 @@ router.post("/",middlewareComp, (req, res) => {
                                             }
                                             qo = data3[0].question_order;
                                             nextqid = qo[qind +1];
-                                            q4 = "UPDATE current_status SET current_ques_id = ?, question_index = ? WHERE Team_ID = ?"
-                                            mysql.query(q4, [nextqid, qind + 1, teamid], (err4, data4) => {
+                                            q4 = "UPDATE current_status SET current_ques_id = ?, current_ques_no = ? WHERE Team_ID = ?"
+                                            mysql.query(q4, [nextqid, qind + 2, teamid], (err4, data4) => {
                                                 if (err4){
                                                     res.json({
                                                         code:-4,
@@ -101,7 +101,7 @@ router.post("/",middlewareComp, (req, res) => {
                                             else {
                                                 wrgattempt = data5[0].wrong_attempts
                                                 console.log(data5[0])
-                                                if (wrgattempt >= 10) {
+                                                if (wrgattempt > 10) {
                                                     res.json({
                                                         code: -8,
                                                         message: "You have exceeded the limit for wrong QR Scans"
@@ -120,6 +120,7 @@ router.post("/",middlewareComp, (req, res) => {
                                                             return res.json({
                                                                 Status_code : 200,
                                                                 code: 2,
+                                                                wrong_attempts:wrgattempt,
                                                                 message:"Updated wrong attempts Successfully"
                                                             })
                                                         }
@@ -134,13 +135,13 @@ router.post("/",middlewareComp, (req, res) => {
                         }
     
                     })
-                }
-                else{
-                    res.json({
-                        code:11,
-                        message:"You have finished the HUNT"
-                    })
-                }
+                // }
+                // else{
+                //     res.json({
+                //         code:11,
+                //         message:"You have finished the HUNT"
+                //     })
+                // }
             }
         }
     })
