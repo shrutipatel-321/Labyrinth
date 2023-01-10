@@ -87,7 +87,7 @@ router.post("/", (req, res) => {
       return q_array.push(item);
     });
     
-  q_array.push("5");
+  q_array.push("10");
   // console.log(q_array);
 
   axios
