@@ -19,10 +19,10 @@ app.use('/leaderboard',  require('./routes/leaderboard'));
 
 // Server Listen
 app.listen(port, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("app is runnig on port : ", port);
-    }
-  });
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("app is runnig on port : ", port);
+  }
+});
 
