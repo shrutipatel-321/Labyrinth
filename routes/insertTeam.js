@@ -18,7 +18,7 @@ router.post("/", (req, res) => {
 
   
     const q =
-      "SELECT * FROM labyrinth.labyrinth_questions WHERE difficulty='easy'";
+      "SELECT question_id FROM labyrinth.labyrinth_questions WHERE difficulty='easy'";
     mysql.query(q, (err, data) => {
       // console.log(data);
       if(err) console.log(err);
@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
   
  
     const q1 =
-      "SELECT * FROM labyrinth.labyrinth_questions WHERE difficulty='hard'";
+      "SELECT question_id FROM labyrinth.labyrinth_questions WHERE difficulty='hard'";
      
       mysql.query(q1, (err, data) => {
       // console.log(data);

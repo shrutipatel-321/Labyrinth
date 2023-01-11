@@ -3,9 +3,10 @@ const router = express.Router();
 const mysql = require("../database/connection.js").con;
 
 router.get("/", (req, res) => {
-  const q = "SELECT * FROM labyrinth_questions WHERE question_id = (?)";
+  const q = "SELECT question_string FROM labyrinth_questions WHERE question_id = (?)";
   const values = [req.body.ques_id];
   var qs=[];
+
   function shuffle(array) {
     let currentIndex = array.length,
       randomIndex;
@@ -25,6 +26,7 @@ router.get("/", (req, res) => {
 
     return array;
   }
+  
   mysql.query(q, [values], (err, data) => {
     if (err) {
       console.log(err);
@@ -35,6 +37,8 @@ router.get("/", (req, res) => {
     } else {
       if (data.length != 0) {
          qs=data[0].question_string;
+      
+        // console.log(data)
         //  console.log(qs);
         shuffle(qs);
         res.send(qs[0]);
