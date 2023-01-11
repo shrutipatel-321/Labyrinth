@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const mysql = require("../database/connection.js").con;
+const middlewareComp = require('../middleware/middleware')
 
 
 
-router.get("/", (req,res)=>{
-    
-    
-        let qry = `select Sl_no, Team_ID,current_ques_no,team_member_names from current_status order by current_ques_no desc limit 3`;
+router.get("/",middlewareComp, (req,res)=>{
+      //  console.log(req.body.SF_ID);
+        // var flag=false;
+        let qry = `select * from current_status where Team_ID=${req.body.Team_ID} union (select * from current_status order by current_ques_no desc limit 3) ORDER by current_ques_no desc`;
         mysql.query(qry, (err, result) => {
           
           if (err) {
@@ -16,15 +17,15 @@ router.get("/", (req,res)=>{
               message: err.message,
             });
           } else {
-            let newResult = result.map((ele)=>{
-            //   ele.SF_ID="SF"+ele.SF_ID
-              
-              return (ele)
-            })
+            // let newResult = result.map((ele)=>{
+            // //   ele.SF_ID="SF"+ele.SF_ID      
+            //   return (ele)
+            // })
+            
             res.send({
               code: 5,
               message: "These are the users with top scores",
-              Top_users: newResult,
+              Top_users: result,
             });
           }
         });
