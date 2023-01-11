@@ -3,6 +3,7 @@ const router = express.Router();
 const mysql = require("../database/connection.js").con;
 
 router.get("/", (req, res) => {
+
   const q = "SELECT * FROM labyrinth_questions WHERE ques_id = (?)";
   const values = [req.body.ques_id];
   mysql.query(q, [values], (err, data) => {
