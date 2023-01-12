@@ -43,9 +43,10 @@ router.get("/", (req, res) => {
         //  console.log(qs);
         shuffle(qs);
         res.send(qs[0]);
+      }
+      else{
         return res.send("Question doesn't exist");
-        
-      } 
+      }
     }
   });
 });
