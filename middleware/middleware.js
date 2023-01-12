@@ -20,7 +20,9 @@ const middlewareComp = (req, res, next)=>{
                 })
             }
             else{
+                console.log(data)
                 present = data[0].team_member_names.includes(req.body.SF_ID);
+                // console.log(data[0].team_member_names)
                 if(present){
                     q4 = `SELECT current_ques_no FROM current_status WHERE Team_ID = ${req.body.Team_ID}`;
                     mysql.query(q4,(err2,data2)=>{
