@@ -8,6 +8,7 @@ const cors = require('cors');
 app.use(cors({
     origin: '*'
 }));
+
 app.use(express.json());
 // Routing
 app.use('/question',  require('./routes/currentQuestion'));
