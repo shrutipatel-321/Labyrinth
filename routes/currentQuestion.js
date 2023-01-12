@@ -34,15 +34,17 @@ router.get("/", (req, res) => {
         code: -1,
         message: err.message,
       });
-    } else {
+    }
+    else {
       if (data.length != 0) {
-         qs=data[0].question_string;
+        qs=data[0].question_string;
       
         // console.log(data)
         //  console.log(qs);
         shuffle(qs);
         res.send(qs[0]);
-      } else {
+      }
+      else{
         return res.send("Question doesn't exist");
       }
     }
