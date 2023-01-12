@@ -37,40 +37,15 @@ router.get("/", (req, res) => {
     }
     else {
       if (data.length != 0) {
-        q2 = "SELECT question_string FROM labyrinth_questions WHERE question_id = (?)";
-        const values2 = [data[0].current_ques_id];
-
-        mysql.query(q2, [values2], (err, data2) => {
-          if (err) {
-            console.log(err);
-            return res.send({
-              code: -1,
-              message: err.message,
-            });
-          } else {
-            // console.log(data2)
-
-            return res.json({
-
-              code: 0,
-              question : data2[0].question_string
-            }
-            );
-          }
-          // return res.status(200).json(data[0].question_string);
-        });
-      }
-      else {
-        return res.send("Team doesn't exist");
-         qs=data[0].question_string;
+        qs=data[0].question_string;
       
         // console.log(data)
         //  console.log(qs);
         shuffle(qs);
         res.send(qs[0]);
-      } else {
         return res.send("Question doesn't exist");
-      }
+        
+      } 
     }
   });
 });
