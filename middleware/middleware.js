@@ -5,7 +5,7 @@ const mysql = require("../database/connection.js").con;
 
 
 const middlewareComp = (req, res, next)=>{
-    console.log(req.body.Team_ID);
+    // console.log(req.body.Team_ID);
 //    const team_id=JSON.parse((req.body.Team_ID))
     const q = "SELECT team_member_sfids from current_status WHERE Team_ID = ?"
     mysql.query(q, [req.body.Team_ID],(err,data)=>{
@@ -23,7 +23,7 @@ const middlewareComp = (req, res, next)=>{
                 })
             }
             else{
-                console.log(data)
+                // console.log(data)
                 present = data[0].team_member_sfids.includes(req.body.SF_ID);
                 // console.log(data[0].team_member_names)
                 // console.log(present);
