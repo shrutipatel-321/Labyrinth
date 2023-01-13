@@ -8,16 +8,13 @@ const cors = require('cors');
 app.use(cors({
     origin: '*'
 }));
-
 app.use(express.json());
 // Routing
 app.use('/question',  require('./routes/currentQuestion'));
 app.use('/team',  require('./routes/insertTeam'));
 app.use('/answer',  require('./routes/submitAnswer'));
 app.use('/leaderboard',  require('./routes/leaderboard'));
-
-
-
+app.use('/getAllInfo',  require('./routes/getallusers'));
 // Server Listen
 app.listen(port, (err) => {
   if (err) {
@@ -26,4 +23,5 @@ app.listen(port, (err) => {
     console.log("app is runnig on port : ", port);
   }
 });
+
 

@@ -3,8 +3,6 @@ const router = express.Router();
 const mysql = require("../database/connection.js").con;
 const middlewareComp = require('../middleware/middleware')
 
-
-
 router.get("/",middlewareComp, (req,res)=>{
       //  console.log(req.body.SF_ID);
         // var flag=false;
