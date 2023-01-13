@@ -3,8 +3,8 @@ const router = express.Router();
 const mysql = require("../database/connection.js").con;
 
 router.get("/", (req, res) => {
-  const q = "SELECT question_string FROM labyrinth_questions WHERE question_id = (?)";
-  const values = [req.body.ques_id];
+  const q = "SELECT question_string FROM labyrinth_questions WHERE question_id = ?";
+  const values = [req.body.question_id];
   var qs=[];
 
   function shuffle(array) {

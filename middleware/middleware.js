@@ -4,7 +4,7 @@ const router = express.Router();
 const mysql = require("../database/connection.js").con;
 
 const middlewareComp = (req, res, next)=>{
-    q = "SELECT team_member_names from current_status WHERE Team_ID = ?"
+    q = "SELECT team_member_sfids from current_status WHERE Team_ID = ?"
     mysql.query(q, [req.body.Team_ID],(err,data)=>{
         if(err){
             return res.json({
@@ -21,7 +21,7 @@ const middlewareComp = (req, res, next)=>{
             }
             else{
                 console.log(data)
-                present = data[0].team_member_names.includes(req.body.SF_ID);
+                present = data[0].team_member_sfids.includes(req.body.SF_ID);
                 // console.log(data[0].team_member_names)
                 if(present){
                     q4 = `SELECT current_ques_no FROM current_status WHERE Team_ID = ${req.body.Team_ID}`;
