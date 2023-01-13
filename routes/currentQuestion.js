@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const mysql = require("../database/connection.js").con;
+const middlewareComp=require('../middleware/middleware')
 
-router.get("/", (req, res) => {
+router.post("/",middlewareComp,(req, res) => {
   const q = "SELECT question_string FROM labyrinth_questions WHERE question_id = (?)";
-  const values = [req.body.ques_id];
+  const values = [req.body.question_id];
   var qs=[];
 
   function shuffle(array) {
@@ -42,7 +43,10 @@ router.get("/", (req, res) => {
         // console.log(data)
         //  console.log(qs);
         shuffle(qs);
-        res.send(qs[0]);
+        res.send({
+          code:0,
+          message:qs[0],
+        });
       }
       else{
         return res.send("Question doesn't exist");

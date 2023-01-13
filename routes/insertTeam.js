@@ -117,27 +117,27 @@ router.post("/", (req, res) => {
                     if (err) {
                       console.log(err);
                       return res.send({
-                        data: {
+                       
                           code: -3,
                           message: err.message,
-                        },
+                        
                       });
                     } else {
                       return res.status(200).send({
-                        data: {
+                        
                           code: 0,
                           message: "Registration successfull",
-                        },
+                       
                       });
                     }
                   });
                 }
                 if (response.data.code == -2)
                   res.send({
-                    data: {
+                  
                       code: -2,
                       message: "Token expired",
-                    },
+                   
                   });
               })
               .catch((err) => {

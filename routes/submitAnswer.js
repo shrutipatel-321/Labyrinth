@@ -36,7 +36,7 @@ router.post("/",middlewareComp, (req, res) => {
                             qid = data[0].current_ques_id;
     
                             // Checking corrrect QR
-                            q2 = "SELECT * FROM labyrinth_questions WHERE question_id = ? AND qr_string = ?"
+                            q2 = "SELECT question_id FROM labyrinth_questions WHERE question_id = ? AND qr_string = ?"
                             mysql.query(q2, [qid,req.body.qr_string], (err2, data2) => {
                                 if (err2){
                                     res.json({
@@ -69,6 +69,7 @@ router.post("/",middlewareComp, (req, res) => {
                                                     res.status(200).json({
                                                     Status_code : 200,
                                                     code: 1,
+                                                    question_id:nextqid,
                                                     message:"Updated question id Successfully"
                                                     })
                                                     
