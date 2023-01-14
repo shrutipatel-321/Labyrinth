@@ -46,6 +46,7 @@ function eventsHandler(request, response, next) {
 function sendEventsToAll() {
   team_members.forEach((member) => member.response.write(`data: Correct`));
 }
+
 router.post("/updateTeam", middlewareComp, eventsHandler);
 router.post("/", middlewareComp, (req, res) => {
   // req.body.qr_string = qr_string
