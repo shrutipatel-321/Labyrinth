@@ -3,8 +3,6 @@ const app = express();
 const mysql = require("./database/connection.js").con;
 const port = 8000;
 const cors = require('cors');
-
-
 app.use(cors({
     origin: '*'
 }));
@@ -23,5 +21,6 @@ app.listen(port, (err) => {
     console.log("app is runnig on port : ", port);
   }
 });
+
 
 

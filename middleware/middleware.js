@@ -9,6 +9,7 @@ const middlewareComp = (req, res, next)=>{
 //    const team_id=JSON.parse((req.body.Team_ID))
     const q = "SELECT team_member_sfids from current_status WHERE Team_ID = ?"
     mysql.query(q, [req.body.Team_ID],(err,data)=>{
+        // console.log(data);
         if(err){
             return res.json({
                 code:-20,
@@ -16,6 +17,9 @@ const middlewareComp = (req, res, next)=>{
             })  
         }
         else{
+            console.log(req.body.Team_ID);
+            console.log(req.body.SF_ID);
+            console.log(data);
             if(data.length== 0){
                 return res.json({
                     code:-29,

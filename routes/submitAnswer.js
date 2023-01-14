@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mysql = require("../database/connection.js").con;
-const middlewareComp = require('../middleware/middleware')
+const middlewareComp = require("../middleware/middleware");
 
 router.post("/",middlewareComp, (req, res) => {
     // req.body.qr_string = qr_string

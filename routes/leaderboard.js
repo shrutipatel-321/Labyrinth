@@ -3,7 +3,7 @@ const router = express.Router();
 const mysql = require("../database/connection.js").con;
 const middlewareComp = require('../middleware/middleware')
 
-router.get("/",middlewareComp, (req,res)=>{
+router.post("/",middlewareComp, (req,res)=>{
       //  console.log(req.body.SF_ID);
         // var flag=false;
         let qry = `select * from current_status where Team_ID=${req.body.Team_ID} union (select * from current_status order by current_ques_no desc limit 3) ORDER by current_ques_no desc`;
