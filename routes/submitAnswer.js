@@ -70,6 +70,8 @@ router.post("/",middlewareComp, (req, res) => {
                                                     Status_code : 200,
                                                     code: 1,
                                                     question_id:nextqid,
+                                                    question_no:qind+2,
+                                                    wrong_attempts:wrgattempt,
                                                     message:"Updated question id Successfully"
                                                     })
                                                     
@@ -113,11 +115,12 @@ router.post("/",middlewareComp, (req, res) => {
                                                             })
                                                         }
                                                         else{
-                                                            return res.json({
+                                                            return res.send({
                                                                 Status_code : 200,
                                                                 code: 2,
                                                                 wrong_attempts:wrgattempt,
                                                                 message:"Updated wrong attempts Successfully"
+
                                                             })
                                                         }
                                                     })
