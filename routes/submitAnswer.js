@@ -35,7 +35,6 @@ function eventsHandler(request, response, next) {
       id: sfids,
       response,
     };
-
     team_members.push(newClient);
   }
   request.on("close", () => {
