@@ -57,7 +57,7 @@ router.post("/",middlewareComp, (req, res) => {
                                             // }
                                             // qo = dataslno[0].question_order;
                                             nextqid = qo[qind +1];
-                                            q4 = "UPDATE current_status SET current_ques_id = ?, current_ques_no = ? WHERE Team_ID = ?"
+                                            q4 = `UPDATE current_status SET current_ques_id = ?, current_ques_no = ? ,last_updated=${new Date()} WHERE Team_ID = ?`
                                             mysql.query(q4, [nextqid, qind + 2, teamid], (err4, data4) => {
                                                 if (err4){
                                                     res.json({
@@ -106,7 +106,7 @@ router.post("/",middlewareComp, (req, res) => {
                                                     })
                                                 }
                                                 else {
-                                                    q6 = `UPDATE current_status SET wrong_attempts = ${wrgattempt+1} WHERE Team_ID = ${teamid}`
+                                                    q6 = `UPDATE current_status SET wrong_attempts = ${wrgattempt+1}  SET last_updated=${new Date()} WHERE Team_ID = ${teamid}`
                                                     mysql.query(q6, (err6, data6) => {
                                                         if (err6){
                                                             res.json({

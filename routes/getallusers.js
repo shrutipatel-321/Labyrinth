@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mysql = require("../database/connection.js").con;
 // const middlewareComp = require('../middleware/middleware')
-router.get("/", (req,res)=>{
+router.post("/", (req,res)=>{
       let qry = `select * from current_status`;
       mysql.query(qry, (err, result) => {
         if (err) {
