@@ -13,6 +13,7 @@ app.use('/team',  require('./routes/insertTeam'));
 app.use('/answer',  require('./routes/submitAnswer'));
 app.use('/leaderboard',  require('./routes/leaderboard'));
 app.use('/getAllInfo',  require('./routes/getallusers'));
+app.use('/deregister',  require('./routes/deregisterTeam'));
 // Server Listen
 app.listen(port, (err) => {
   if (err) {
