@@ -6,7 +6,7 @@ const middlewareComp = require('../middleware/middleware')
 router.post("/",middlewareComp, (req,res)=>{
       //  console.log(req.body.SF_ID);
         // var flag=false;
-        let qry = `select * from current_status where Team_ID=${req.body.Team_ID} union (select * from current_status order by current_ques_no desc limit 3) ORDER by current_ques_no desc`;
+        let qry = `select * from current_status where Team_ID=${req.body.Team_ID} union (select * from current_status order by current_ques_no desc limit 3) ORDER by current_ques_no desc,last_updated asc`;
         mysql.query(qry, (err, result) => {
           
           if (err) {
