@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
     return array;
   }
 
-  async function datafetching() {
+ 
     const q =
       "SELECT question_id FROM labyrinth.labyrinth_questions WHERE difficulty='easy'";
     mysql.query(q, (err, data) => {
@@ -61,15 +61,20 @@ router.post("/", (req, res) => {
             shuffle(easy_qs);
 
             shuffle(hard_qs);
-
-            easy_qs.map((item) => {
-              return q_array.push(item);
+          
+            easy_qs.map((item,i) => {
+              if(i<5)
+              return 
+                q_array.push(item)
+             
             });
-            hard_qs.map((item) => {
-              return q_array.push(item);
+           
+            hard_qs.map((item,i) => {
+              if(i<5)
+              return q_array.push(item)
             });
 
-            q_array.push("10");
+            q_array.push("20");
             // console.log(q_array);
 
             axios
@@ -86,7 +91,7 @@ router.post("/", (req, res) => {
                   );
 
                   const event = events.filter((item, i) => {
-                    return item.event_name == "Centrifuge";
+                    return item.event_name == "Labyrinth";
                   });
 
                   Team_ID = event[0]?.group_id;
@@ -107,7 +112,7 @@ router.post("/", (req, res) => {
                     Team_ID,
                     q_array[0],
                     q_array[0],
-                    10,
+                    0,
                     last_updated,
                     JSON.stringify(q_array),
                     JSON.stringify(team_member_names),
@@ -147,9 +152,8 @@ router.post("/", (req, res) => {
         });
       }
     });
-  }
-
-  datafetching();
+  
+  
 });
 
 module.exports = router;

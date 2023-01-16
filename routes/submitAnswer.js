@@ -68,10 +68,10 @@ router.post("/",middlewareComp, (req, res) => {
                                                 else{ 
                                                     res.status(200).json({
                                                     Status_code : 200,
-                                                    code: 1,
+                                                    code: 0,
                                                     question_id:nextqid,
                                                     question_no:qind+2,
-                                                    wrong_attempts:wrgattempt,
+                                                    // wrong_attempts:wrgattempt,
                                                     message:"Updated question id Successfully"
                                                     })
                                                     
@@ -99,7 +99,7 @@ router.post("/",middlewareComp, (req, res) => {
                                             // else {
                                                 // wrgattempt = dataslno[0].wrong_attempts
                                                 console.log(dataslno[0])
-                                                if (wrgattempt > 10) {
+                                                if (wrgattempt >= 10) {
                                                     res.json({
                                                         code: -8,
                                                         message: "You have exceeded the limit for wrong QR Scans"
@@ -118,7 +118,7 @@ router.post("/",middlewareComp, (req, res) => {
                                                             return res.send({
                                                                 Status_code : 200,
                                                                 code: 2,
-                                                                wrong_attempts:wrgattempt,
+                                                                wrong_attempts:wrgattempt+1,
                                                                 message:"Updated wrong attempts Successfully"
 
                                                             })

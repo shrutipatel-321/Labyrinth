@@ -30,7 +30,7 @@ router.post("/",middlewareComp,(req, res) => {
   
   mysql.query(q, [values], (err, data) => {
     if (err) {
-      console.log(err);
+      // console.log(err);
       return res.send({
         code: -1,
         message: err.message,

@@ -17,9 +17,9 @@ const middlewareComp = (req, res, next)=>{
             })  
         }
         else{
-            console.log(req.body.Team_ID);
-            console.log(req.body.SF_ID);
-            console.log(data);
+            // console.log(req.body.Team_ID);
+            // console.log(req.body.SF_ID);
+            // console.log(data);
             if(data.length== 0){
                 return res.json({
                     code:-29,
