@@ -32,6 +32,7 @@ const middlewareComp = (req, res, next)=>{
                 // console.log(data[0].team_member_names)
                 // console.log(present);
                 if(present){
+                    
                     q4 = `SELECT current_ques_no FROM current_status WHERE Team_ID = ${req.body.Team_ID}`;
                     mysql.query(q4,(err2,data2)=>{
                         if(err2){
@@ -41,7 +42,7 @@ const middlewareComp = (req, res, next)=>{
                             })
                         }
                         else{
-                            if(data2[0].current_ques_no < 10){
+                            if(data2[0].current_ques_no < 11){
                                 next();
                             }
                             else{

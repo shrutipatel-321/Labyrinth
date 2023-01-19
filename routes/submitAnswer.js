@@ -56,27 +56,37 @@ router.post("/",middlewareComp, (req, res) => {
                                             //     })
                                             // }
                                             // qo = dataslno[0].question_order;
-                                            nextqid = qo[qind +1];
-                                            q4 = `UPDATE current_status SET current_ques_id = ?, current_ques_no = ? ,last_updated=${new Date()} WHERE Team_ID = ?`
-                                            mysql.query(q4, [nextqid, qind + 2, teamid], (err4, data4) => {
-                                                if (err4){
-                                                    res.json({
-                                                        code:-4,
-                                                        message: err4.message
-                                                    })
-                                                }
-                                                else{ 
-                                                    res.status(200).json({
+                                            if(qind === 9){
+                                                return res.status(200).json({
                                                     Status_code : 200,
-                                                    code: 0,
-                                                    question_id:nextqid,
-                                                    question_no:qind+2,
-                                                    // wrong_attempts:wrgattempt,
-                                                    message:"Updated question id Successfully"
-                                                    })
-                                                    
-                                                } 
-                                            })
+                                                    code: 1,
+                                                    message:"You have completed the HUNT."
+                                                })
+                                            }
+                                            else{
+                                                nextqid = qo[qind +1];
+                                                q4 = `UPDATE current_status SET current_ques_id = ?, current_ques_no = ? ,last_updated=${new Date()} WHERE Team_ID = ?`
+                                                mysql.query(q4, [nextqid, qind + 2, teamid], (err4, data4) => {
+                                                    if (err4){
+                                                        res.json({
+                                                            code:-4,
+                                                            message: err4.message
+                                                        })
+                                                    }
+                                                    else{ 
+                                                        
+                                                        res.status(200).json({
+                                                        Status_code : 200,
+                                                        code: 0,
+                                                        question_id:nextqid,
+                                                        question_no:qind+2,
+                                                        // wrong_attempts:wrgattempt,
+                                                        message:"Updated question id Successfully"
+                                                        })
+                                                        
+                                                    } 
+                                                })
+                                            }
                                                 
                                             
                                         // })
