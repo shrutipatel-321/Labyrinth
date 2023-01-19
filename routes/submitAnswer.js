@@ -8,6 +8,7 @@ router.post("/",middlewareComp, (req, res) => {
     // req.body.Team_ID = tid
 
     const teamid = req.body.Team_ID;
+    const date=new Date();
     qind = "";
     qnind = `SELECT current_ques_no, question_order, wrong_attempts FROM current_status WHERE Team_ID = ${teamid}`;
     mysql.query(qnind, (errslno, dataslno) => {
@@ -57,8 +58,8 @@ router.post("/",middlewareComp, (req, res) => {
                                             // }
                                             // qo = dataslno[0].question_order;
                                             nextqid = qo[qind +1];
-                                            q4 = `UPDATE current_status SET current_ques_id = ?, current_ques_no = ? ,last_updated=${new Date()} WHERE Team_ID = ?`
-                                            mysql.query(q4, [nextqid, qind + 2, teamid], (err4, data4) => {
+                                            q4 = `UPDATE current_status SET current_ques_id = ?, current_ques_no = ?, last_updated=? WHERE Team_ID = ?`
+                                            mysql.query(q4, [nextqid, qind + 2,date, teamid], (err4, data4) => {
                                                 if (err4){
                                                     res.json({
                                                         code:-4,
@@ -71,7 +72,7 @@ router.post("/",middlewareComp, (req, res) => {
                                                     code: 0,
                                                     question_id:nextqid,
                                                     question_no:qind+2,
-                                                    // wrong_attempts:wrgattempt,
+                                                    wrong_attempts:wrgattempt,
                                                     message:"Updated question id Successfully"
                                                     })
                                                     
@@ -106,8 +107,8 @@ router.post("/",middlewareComp, (req, res) => {
                                                     })
                                                 }
                                                 else {
-                                                    q6 = `UPDATE current_status SET wrong_attempts = ${wrgattempt+1}  SET last_updated=${new Date()} WHERE Team_ID = ${teamid}`
-                                                    mysql.query(q6, (err6, data6) => {
+                                                    q6 = `UPDATE current_status SET wrong_attempts = ${wrgattempt+1}, last_updated=? WHERE Team_ID = ${teamid}`
+                                                    mysql.query(q6,[date], (err6, data6) => {
                                                         if (err6){
                                                             res.json({
                                                                 code:-6,

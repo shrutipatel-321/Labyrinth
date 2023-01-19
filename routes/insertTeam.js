@@ -70,7 +70,7 @@ router.post("/", (req, res) => {
             });
            
             hard_qs.map((item,i) => {
-              if(i<5)
+              if(i<4)
               return q_array.push(item)
             });
 
