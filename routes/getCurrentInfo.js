@@ -21,7 +21,8 @@ router.post("/", (req,res)=>{
             message: "Current Info",
             Current_qno: result[0]?.current_ques_no,
             Current_qid:result[0]?.current_ques_id,
-            Wrong_attempts:result[0]?.wrong_attempts
+            Wrong_attempts:result[0]?.wrong_attempts,
+            teamname:result[0]?.Team_name,
                     });
         }
       });

@@ -36,7 +36,7 @@ const middlewareComp = (req, res, next)=>{
                     q4 = `SELECT current_ques_no FROM current_status WHERE Team_ID = ${req.body.Team_ID}`;
                     mysql.query(q4,(err2,data2)=>{
                         if(err2){
-                            res.json({
+                            res.send({
                                 code:-33,
                                 message:err2.message
                             })
@@ -57,7 +57,7 @@ const middlewareComp = (req, res, next)=>{
                     
                 }
                 else{
-                    return res.json({
+                    return res.send({
                         code:-25,
                         message:"Team member not present in the team."
                     })

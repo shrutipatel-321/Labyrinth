@@ -107,10 +107,11 @@ router.post("/", (req, res) => {
                   const last_updated = new Date();
 
                   const q =
-                    "INSERT INTO labyrinth.current_status(Team_ID, current_ques_no, current_ques_id, wrong_attempts, last_updated, question_order, team_member_names, team_member_sfids) VALUES (?)";
+                    "INSERT INTO labyrinth.current_status(Team_ID,Team_name, current_ques_no, current_ques_id, wrong_attempts, last_updated, question_order, team_member_names, team_member_sfids) VALUES (?)";
                   const values = [
                     Team_ID,
-                    q_array[0],
+                    req.body.Team_name,
+                    1,
                     q_array[0],
                     0,
                     last_updated,

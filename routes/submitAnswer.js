@@ -110,7 +110,7 @@ router.post("/",middlewareComp, (req, res) => {
                                             // else {
                                                 // wrgattempt = dataslno[0].wrong_attempts
                                                 console.log(dataslno[0])
-                                                if (wrgattempt >= 10) {
+                                                if (wrgattempt >= 5) {
                                                     res.json({
                                                         code: -8,
                                                         message: "You have exceeded the limit for wrong QR Scans"
