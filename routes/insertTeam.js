@@ -63,19 +63,19 @@ router.post("/", (req, res) => {
             shuffle(hard_qs);
           
             easy_qs.map((item,i) => {
-              if(i<5)
+              if(i<4)
               return 
                 q_array.push(item)
              
             });
            
             hard_qs.map((item,i) => {
-              if(i<4)
+              if(i<5)
               return q_array.push(item)
             });
 
-            q_array.push("20");
-            // console.log(q_array);
+            q_array.push("30");
+            console.log(q_array);
 
             axios
               .post(
